@@ -13,9 +13,7 @@ class Pokemon {
     releaseButtonHandler() {
         fetch(`${POKEMONS_URL}/${this.dataset.pokemonId}`, {method: "DELETE"}) 
             .then(response => {
-                while (this.parentElement.firstChild) {
-                    this.parentElement.removeChild(this.parentElement.firstChild);
-                };
+                    this.parentElement.remove();
             })
             .catch(error => {
                 window.alert(error.message);
@@ -29,6 +27,7 @@ class Pokemon {
 
         // create release button and append 
         let button = document.createElement("button");
+        button.classList.add("release");
         button.dataset.pokemonId = this.id;
         button.innerText = "Release";
         item.appendChild(button);
