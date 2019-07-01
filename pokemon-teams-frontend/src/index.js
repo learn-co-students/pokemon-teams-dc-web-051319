@@ -86,7 +86,6 @@ const fetchTrainers = () => {
     const owner = target.closest('.card').querySelector('p').innerText
     const id = target.dataset.pokemonId
     const pokemon = target.parentElement
-    debugger
 
     // Remove from page
     pokemon.remove()
