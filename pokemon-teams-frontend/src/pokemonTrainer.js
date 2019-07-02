@@ -1,24 +1,3 @@
-//import {User} from './pokemonTrainer.js'
-
-const BASE_URL = "http://localhost:3000"
-const TRAINERS_URL = `${BASE_URL}/trainers`
-const POKEMONS_URL = `${BASE_URL}/pokemons`
-
-//create pokemon trainer card form inside of main tag
-document.addEventListener("DOMContentLoaded",()=> {
-  displayTrainersPokemon()
-})
-
-//make GET request to fetch all trainers object and inside their pokemon
-function displayTrainersPokemon(){
-  fetch("http://localhost:3000/trainers")
-  .then(response => response.json() )
-  .then(arrayTrainerObjects => iterateTrainersPokemon(arrayTrainerObjects))
-}
-
-function iterateTrainersPokemon(arrayTrainerObjects){
-  arrayTrainerObjects.forEach((entry)=> displayATrainersWithPokemon(entry));
-}
 function displayATrainersWithPokemon(entry){
   //add div container to main tag
   let mainTag = document.querySelector("main");
@@ -86,58 +65,4 @@ function aPokemonEntry(pokemonEntry,ulOfTrainer){
   ulOfTrainer.appendChild(aPokemonListEntry);
 }
 
-
-
-function releasePokemonButtonEvent(){
-  let pokemonID = event.currentTarget.dataset.pokemonId
-  return fetch(`http://localhost:3000/pokemons/${pokemonID}`, {
-    method: "DELETE"
-  })
-  .then(resp => resp.json())
-  .then(data => {
-    deletePokemon(data)
-  })
-}
-
-function deletePokemon(data){
-  if(data.error){
-    alert(`${data.error}`)
-  }else{
-    let trainerID = data.trainer_id
-    let pokemonID = data.id
-    let divPokemonTrainer = document.querySelector(`[data-trainer-id='${trainerID}']`)
-    //acces the li entry of this pokemons
-    let liOfPokemon= divPokemonTrainer.querySelector(`[data-pokemon-id='${pokemonID}']`)
-    //replace innerhtml with blank
-    liOfPokemon.parentElement.innerHTML = ""
-  }
-}
-
-function addPokemonButtonEvent(){
-  //make a post request to add Pokemon
-  fetch('http://localhost:3000/pokemons', {
-    method: "POST",
-    headers:
-    {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(
-      {
-        "trainer_id": event.currentTarget.dataset.id
-      })
-    }).then(res => res.json())
-    .then(data => addPokemon(data))
-  }
-
-  function addPokemon(data){
-    //if user already has 6 alert user you already have 6 POKEMONS
-    // else add the pokemon
-    if(data.error){
-      alert(`${data.error}`)
-    }else{
-    let trainerID = data.trainer_id
-    let divPokemonTrainer = document.querySelector(`[data-trainer-id='${trainerID}']`)
-    let ulCurrentPokemonTrainer= divPokemonTrainer.querySelector("ul")
-    aPokemonEntry(data,ulCurrentPokemonTrainer)
-  }
-}
+//export class User{}
