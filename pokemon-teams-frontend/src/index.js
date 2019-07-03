@@ -80,7 +80,7 @@ function displayAdd(pokemon){
         releaseButton.innerText = "release"
         releaseButton.addEventListener("click", deletePokemon)
         releaseButton.dataset.pokeId = pokemon.id
-        debugger
+        
         pokeList.append(li)
         li.append(releaseButton)
 
